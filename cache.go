@@ -65,3 +65,24 @@ func (c *Cache) SetEntity(ctx context.Context, entity, requestID string, key int
 	_, err = kv.Put(ctx, fmt.Sprint(k), v)
 	return err
 }
+
+func (c *Cache) GetEntities(ctx context.Context, entity, requestID string, key interface{}) (map[string]interface{}, error) {
+	bucket := requestID + "-" + entity
+	kv, err := c.js.KeyValue(ctx, bucket)
+	if err != nil {
+		return nil, err
+	}
+	keys, err := kv.ListKeys(ctx)
+	if err != nil {
+		return nil, err
+	}
+	resp := make(map[string]interface{})
+	for k := range keys.Keys() {
+		v, err := kv.Get(ctx, k)
+		if err != nil {
+			return nil, err
+		}
+		resp[k] = v
+	}
+	return resp, nil
+}
