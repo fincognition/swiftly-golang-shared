@@ -1,0 +1,14 @@
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Go workspace file
+go.work
+
+# Env files
+.env*
+
+# Secret files
+*.secret
+
+# Logs
+logs/*
