@@ -7,6 +7,17 @@ import (
 	"github.com/nats-io/nats.go"
 )
 
+type Partial struct {
+	Content string `json:"content"`
+}
+
+type Document struct {
+	FileID   string    `json:"file_id"`
+	DocType  DocType   `json:"doc_type"`
+	Content  string    `json:"content"`
+	Partials []Partial `json:"partials"`
+}
+
 type ValidateCaseRequest struct {
 	Context
 }
@@ -46,14 +57,7 @@ func WriteCaseFile(ctx context.Context, nc *nats.Conn, req WriteCaseFileRequest,
 
 type WriteDocumentsRequest struct {
 	Context
-	Documents []struct {
-		FileID   string  `json:"file_id"`
-		DocType  DocType `json:"doc_type"`
-		Content  string  `json:"content"`
-		Partials []struct {
-			Content string `json:"content"`
-		} `json:"partials"`
-	} `json:"documents"`
+	Documents []Document `json:"documents"`
 }
 
 type WriteDocumentsResponse struct {
