@@ -3,6 +3,7 @@ package shared
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/nats-io/nats.go"
@@ -16,7 +17,7 @@ func RunRequest[Response any](ctx context.Context, nc *nats.Conn, method string,
 		l.Error().Err(err).Msgf("error serializing %T request", req)
 		return nil, err
 	}
-	resp, err := nc.Request(method, payload, timeout)
+	resp, err := nc.Request(fmt.Sprintf("svc.%s", method), payload, timeout)
 	if err != nil {
 		l.Error().Err(err).Msgf("error processing %s request", method)
 		return nil, err
