@@ -5,6 +5,7 @@ type EndPoint string
 const (
 	// Case Service
 	ValidateCaseSubject   EndPoint = "ValidateCase"
+	WriteCaseFileSubject  EndPoint = "WriteCaseFile"
 	WriteDocumentsSubject EndPoint = "WriteDocuments"
 	// File Service
 	ProcessFilesSubject EndPoint = "ProcessFiles"
