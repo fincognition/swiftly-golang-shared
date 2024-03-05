@@ -66,7 +66,7 @@ func (c *Cache) SetEntity(ctx context.Context, entity, requestID string, key int
 	return err
 }
 
-func (c *Cache) GetEntities(ctx context.Context, entity, requestID string, key interface{}) (map[string]interface{}, error) {
+func (c *Cache) GetEntities(ctx context.Context, entity, requestID string) (map[string]interface{}, error) {
 	bucket := requestID + "-" + entity
 	kv, err := c.js.KeyValue(ctx, bucket)
 	if err != nil {
